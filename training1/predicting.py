@@ -2,6 +2,8 @@ import pickle
 import numpy as np
 from random import shuffle, seed
 from searchBest import argMax_XleftOvers
+from topics import dict_topics
+from imghtml import htmlwrite
 # take out np
 
 # load the weights
@@ -30,10 +32,12 @@ testQueries = allQueries[1::k]
 pathRankings = "../rankings/"
 num_Docs = 10
 eps = 0.5
+querysRanks = {}
 for query in testQueries:
     doc_set = X[query]  # given a ordered doc set
     s = []
     s_id = []
+    urls = []
     left = doc_set
     for i in xrange(len(doc_set)):
 
@@ -41,12 +45,37 @@ for query in testQueries:
         if gain < eps:  # if the best gain is very small
             break
         s.append(left[ind])  # add to final rank
-        s_id.append(str(left[ind]["id"]))  # add to final rank (take only id)
+        s_id.append([left[ind]["id"], gain])  # add to final rank (take only id)
+        urls.append(left[ind]["url_b"])
         del left[ind]  # remove from X\S
         if len(s) > num_Docs:  # if we chose more than num_Docs
             break
+        
+    querysRanks[query] = s_id # dict the ranks per query
+    if 1: #write an html per query with ordered urls
+        htmlwrite(query, s_id, urls)
 
-    with open(pathRankings + query, 'rb') as rankFile:
-        for idnum in s_id:
-            rankFile.write(idnum)
-            rankFile.write("\n")
+if 0: # submission format
+    # get topics dict    
+    topic_path = "../../devset_topics.xml"
+    topDict = dict_topics(topic_path)
+    res_path = "../ranking/csluRanking.txt"
+    fout = open(res_path, "w")
+    run_id = "cslu"
+    itern = "0"
+    for query, val in topDict.iteritems():
+        q_ranks = querysRanks[query]
+        q_id = topDict[query]
+        for i, (docno, score) in enumerate(q_ranks):
+            fout.write("{0} {1} {2} {3} {4} {5:.2f} {6}".format(
+                            q_id.ljust(7),
+                            itern.rjust(4), docno.rjust(20), \
+                            str(i).rjust(5), score.rjust(20),\
+                            run_id.rjust(10)
+                            ))
+            fout.write("\n")
+            
+            
+            
+        
+# we assume the scores are getting lower as we continue choosing more docs
