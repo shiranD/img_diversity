@@ -10,12 +10,10 @@ def htmlwrite(query, docList, urls):
         myFile.write('<head>')
         myFile.write('<title>Page Title</title>')
         myFile.write('</head>')
-    
-        myFile.write('<h1>Ranked List for %s Query</h1>'%(query))
+        myFile.write('<FONT FACE="hiragino maru gothic pro"><h1>Ranked List for %s Query</h1></FONT>'%(query))    
         for i, (doc, url) in enumerate(zip(docList, urls)):
-            
-            myFile.write('<p>%s: doc number is %s and score = %0.2f</p>'%(str(i), doc[0], doc[1]))
-            myFile.write('<IMG SRC=%s ALT="some text" WIDTH=256 HEIGHT=256>'%(url))
+            myFile.write('<FONT FACE="hiragino maru gothic pro"><p align="center">%s: doc # = %s and score = %0.2f</p>'%(str(i), doc[0], doc[1]))
+            myFile.write('<center><IMG SRC=%s ALT="some text" WIDTH=256 HEIGHT=256></center>'%(url))
     
         myFile.write('</html>')
         myFile.close()
