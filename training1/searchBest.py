@@ -8,7 +8,7 @@ def argMax_XleftOvers(left, s, wd, wr, query):
        diverse and relevant doc at a time"""
 
     if len(s) == 0:
-        return 0, 10  # choose the first one
+        return 0, 10.0 # choose the first one
     else:
         f_measures = []
         # compute f_measure to all left docs
@@ -21,6 +21,6 @@ def argMax_XleftOvers(left, s, wd, wr, query):
         # rank by highest f_measure
         f_measures.sort(key=operator.itemgetter(1), reverse=True)
         ind, gain = f_measures[0]
-        print ind, gain, str(left[ind]["id"])
+        #print ind, gain, str(left[ind]["id"])
 
         return ind, gain

@@ -7,6 +7,7 @@ from computeWs_py import compute_hsofR, compute_denom, \
 import numpy as np
 import pickle
 from datetime import datetime
+import sys, os
 
 path = "data/X"
 
@@ -39,30 +40,36 @@ queries = list(set(allQueries) - set(testQueries))
 # prepare lda
 # ldaPrep(allQueries, X)
 
-if 1:
+path = "data/Hs"
+if 0:
     #buit dicts for hs and doc
-    HsR = defaultdict(lambda: defaultdict(lambda: np.zeros(3)))
+    HsR = {}
     for query in queries:
+        if query == "agra_fort":
+            continue
+        
         doc_set = X[query]  # given a ordered doc set
-        s = []    
+        s = []
+        docsR = []
         for i, doc in enumerate(doc_set):
             if not s:
                 s.append(doc)
                 continue
             hs_ofR = compute_hsofR(doc, s, query)
-            HsR[query][i] = hs_ofR
+            docsR.append(hs_ofR)
             s.append(doc)
+        HsR[query] = docsR
+        print query
+        
             
-    path = "data/Hs"
     with open(path, 'wb') as AutoPickleFile:
         pickle.dump((HsR), AutoPickleFile)
 else:
-    with open(path, 'rb') as AutoPickleFile:
-        HsR = pickle.load(AutoPickleFile)    
     
-        
-        
+    with open(path, 'rb') as AutoPickleFile:
+        HsR = pickle.load(AutoPickleFile)       
 
+#sys.exit(os.EX_OK) # code 0, all ok
 # init parameters
 iterNum = 1
 wr_len = 29890
@@ -77,10 +84,13 @@ for a in xrange(iterNum):
     shuffle(queries)  # on queries
 
     for query in queries:
+        if query == "agra_fort":
+            continue        
         wd_q = np.zeros(3)
         wr_q = np.zeros(wr_len)  # TBD how to represent
         doc_set = X[query]  # given a ordered doc set
         s = []
+        R = HsR[query]
 
         for i, doc in enumerate(doc_set):
 
@@ -90,40 +100,46 @@ for a in xrange(iterNum):
 
             else:
                 # compute wd_q for one
-                hs_ofR = compute_hsofR(doc, s, query)
+                hs_ofR = R[i-1]
                 # compute wr_q for one
                 doc_r = doc_it(doc)
                 # compute wd_q for rest
-                wd_rest = compute_wd(doc_set[i:], s, query, wd_q, wr_q)
+                wd_rest = compute_wd(doc_set[i:], s, query, wd_q, wr_q, R[i-1:])
                 # compute wr_q for rest
-                wr_rest = compute_wr(doc_set[i:], s, query, wd_q, wr_q)
+                wr_rest = compute_wr(doc_set[i:], s, query, wd_q, wr_q, R[i-1:])
                 # compute denominator
-                denom = compute_denom(doc_set[i:], s, query, wd_q, wr_q)
+                denom = compute_denom(doc_set[i:], s, query, wd_q, wr_q, R[i-1:])
 
             # subtract wd_q
             wd_q += wd_rest / denom - hs_ofR
             # subtract wr_q
             wr_q += wr_rest / denom - doc_r
             # update w's
-
             s.append(doc)
-        print query
-        print str(datetime.now())
+            print i, str(datetime.now())
+            
+        print query, str(datetime.now())
 
-    # update model weight vectors
-    wd += eta * wd_q
-    wr += eta * wr_q
+        # update model weight vectors
+        wd += eta * wd_q
+        wr += eta * wr_q
 
     # calculate the loss
     loss = 0
     for query in queries:
+        if query == "agra_fort":
+            continue        
         doc_set = X[query]  # given a ordered doc set
         s = []
+        R = HsR[query]
+        
         for i, doc in enumerate(doc_set):
+            if not s:
+                continue
 
-            num = compute_num(doc, s, query, wd, wr)
+            num = compute_num(doc, s, query, wd, wr, R[i-1])
 
-            denom = compute_denom(doc_set[i:], s, query, wd, wr)
+            denom = compute_denom(doc_set[i:], s, query, wd, wr, R[i-1:])
 
             loss += np.log(num / denom)
 
@@ -135,6 +151,6 @@ for a in xrange(iterNum):
 
 # store wd, wr
 path = "weights_py/"
-name = "first"
+name = "second"
 with open(path + name, 'wb') as AutoPickleFile:
     pickle.dump((wd, wr), AutoPickleFile)
