@@ -1,0 +1,67 @@
+\begin{thebibliography}{10}
+
+\bibitem{lda}
+D.~M. Blei, A.~Y. Ng, and M.~I. Jordan.
+\newblock Latent dirichlet allocation.
+\newblock {\em the Journal of machine Learning research}, 3:993--1022, 2003.
+
+\bibitem{lsa}
+S.~C. Deerwester, S.~T. Dumais, T.~K. Landauer, G.~W. Furnas, and R.~A.
+  Harshman.
+\newblock Indexing by latent semantic analysis.
+\newblock {\em JAsIs}, 41(6):391--407, 1990.
+
+\bibitem{cm}
+Z.-C. Huang, P.~P. Chan, W.~W. Ng, and D.~S. Yeung.
+\newblock Content-based image retrieval using color moment and gabor texture
+  feature.
+\newblock In {\em Machine Learning and Cybernetics (ICMLC), 2010 International
+  Conference on}, volume~2, pages 719--724. IEEE, 2010.
+
+\bibitem{mediaEval2015}
+B.~Ionescu, A.~Popescu, M.~Lupu, A.~L. G{\i}nsca, and H.~M{\"u}ller.
+\newblock Retrieving diverse social images at mediaeval 2014: Challenge,
+  dataset and evaluation.
+\newblock In {\em MediaEval 2014 Workshop, Barcelona, Spain}, 2014.
+
+\bibitem{cn}
+H.~Y. Lee, H.~K. Lee, and Y.~H. Ha.
+\newblock Spatial color descriptor for image retrieval and video segmentation.
+\newblock {\em Multimedia, IEEE Transactions on}, 5(3):358--367, 2003.
+
+\bibitem{cnn}
+S.~Papadopoulos, A.~L. Ginsca, A.~Popescu, Y.~Kompatsiaris, and I.~Vlahavas.
+\newblock Improving diversity in image search via supervised relevance scoring.
+
+\bibitem{glr}
+S.~Selvarajah and S.~Kodituwakku.
+\newblock Analysis and comparison of texture features for content based image
+  retrieval.
+\newblock {\em International Journal of Latest Trends in Computing}, 2(1),
+  2011.
+
+\bibitem{csd}
+T.~Sikora.
+\newblock The mpeg-7 visual standard for content description-an overview.
+\newblock {\em Circuits and Systems for Video Technology, IEEE Transactions
+  on}, 11(6):696--702, 2001.
+
+\bibitem{hog}
+R.~YINZZ.
+\newblock Object tracking and detection after occlusion via numerical hybrid
+  local and global model seeking.
+\newblock 1(8), 2008.
+
+\bibitem{glbp}
+G.~Zhang, X.~Huang, S.~Z. Li, Y.~Wang, and X.~Wu.
+\newblock Boosting local binary pattern (lbp)-based face recognition.
+\newblock In {\em Advances in biometric person authentication}, pages 179--186.
+  Springer, 2005.
+
+\bibitem{fscore}
+Y.~Zhu, Y.~Lan, J.~Guo, X.~Cheng, and S.~Niu.
+\newblock Learning for search result diversification.
+\newblock In {\em Proceedings of the 37th international ACM SIGIR conference on
+  Research \& development in information retrieval}, pages 293--302. ACM, 2014.
+
+\end{thebibliography}

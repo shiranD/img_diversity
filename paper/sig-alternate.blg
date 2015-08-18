@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/MacPorts 2015_1)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: sig-alternate.aux
+The style file: abbrv.bst
+Database file #1: references.bib
+Warning--empty journal in cnn
+Warning--empty year in cnn
+Warning--empty journal in hog
+You've used 11 entries,
+            2118 wiz_defined-function locations,
+            564 strings with 5782 characters,
+and the built_in function-call counts, 4288 in all, are:
+= -- 420
+> -- 226
+< -- 4
++ -- 90
+- -- 78
+* -- 318
+:= -- 706
+add.period$ -- 35
+call.type$ -- 11
+change.case$ -- 72
+chr.to.int$ -- 0
+cite$ -- 14
+duplicate$ -- 158
+empty$ -- 313
+format.name$ -- 78
+if$ -- 893
+int.to.chr$ -- 0
+int.to.str$ -- 11
+missing$ -- 11
+newline$ -- 57
+num.names$ -- 22
+pop$ -- 78
+preamble$ -- 1
+purify$ -- 61
+quote$ -- 0
+skip$ -- 112
+stack$ -- 0
+substring$ -- 255
+swap$ -- 40
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 44
+warning$ -- 3
+while$ -- 39
+width$ -- 13
+write$ -- 121
+(There were 3 warnings)
