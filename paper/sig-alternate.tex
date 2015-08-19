@@ -126,7 +126,7 @@ Steven Bedrick\\\
 \begin{abstract}
 These working notes will describe the motivation, process, results and 
 analysis of results that the we have worked on as part of the 
-MediaEval task of 'The 2015 Retrieving Diverse Social Images Task'. 
+MediaEval task of `The 2015 Retrieving Diverse Social Images Task'. 
 The concept of our approach was in implementing a technique \cite{fscore} borrowed from documents retrieval field 
 and applying it to the image domain with appropriate adjustments. 
 The core idea here was that the decision making process, to produce the ranked image sequence, 
@@ -179,26 +179,26 @@ to produce the relevance and diversity weight vectors $w_{r}$, $w_{d}$ that are 
 
 \section{The Method}
 Our task's objective is to utilize the scoring concept for images while incorporating the necessary tools to determine an image scoring function. In our task 
-the relevence feature vector $\mathbf{x_{i}}$ was composed of Latent Semantic Analysis (LSA) \cite{lsa} of 'tags' and 'description' textual fields, 
-information on the user's credibility of 'visualScore', 1-'faceproportion', 'tagSpecificity', 'uniqueTags', 1-'locationSimilarity', and 1-'bulkProportion', 
+the relevence feature vector $\mathbf{x_{i}}$ was composed of Latent Semantic Analysis (LSA) \cite{lsa} of `tags' and `description' textual fields, 
+information on the user's credibility of `visualScore', 1-`faceproportion', `tagSpecificity', `uniqueTags', 1-`locationSimilarity', and 1-`bulkProportion', 
 and the normalized numerical data of image features.
 The diversity feature vector $h_{s}(R_{i})$ was composed of the following features with their coresponding distance metrics: 
-'tags' and 'description' textual fields with cosinedisimilarity, this fields were used with Latent Dirichlet Allocation(LDA) \cite{lda} for topic diversity, 'csd' with l2 distance \cite{csd}, 'hog' with Batacharia distance \cite{hog}, 'cn' with
-euclidian distance \cite{cn}, 'cm' with Canberra distance \cite{cm}, 'lbp' with Chisquare distance \cite{glbp}, 'glr' with l1 distance \cite{glr}, 
-and 'cnn' with Mahalanobis distance \cite{cnn}. A feature represent a more relevant or diverse as higher its value gets.
+`tags' and `description' textual fields with cosinedisimilarity, this fields were used with Latent Dirichlet Allocation(LDA) \cite{lda} for topic diversity, `csd' with l2 distance \cite{csd}, `hog' with Batacharia distance \cite{hog}, 1cn' with
+euclidian distance \cite{cn}, `cm' with Canberra distance \cite{cm}, `lbp' with Chisquare distance \cite{glbp}, `glr' with l1 distance \cite{glr}, 
+and `cnn' with Mahalanobis distance \cite{cnn}. A feature represent a more relevant or diverse as higher its value gets.
 The three algorithms described in \cite{fscore} were reduced to two algorithms since queries were provided with ranked lists 
 of relevance.
 
 
 \subsection{Settings}
 Settings that remained similar across experiments were:
-in relevance feature vector: user credibility information, lsa on 'tag' an 'description', and in diversity feature vector:
-lda on 'tag' an 'description', 'hog' and 'csd'.
+in relevance feature vector: user credibility information, lsa on `tag' an `description', and in diversity feature vector:
+lda on `tag' an `description', `hog' and `csd'.
 We implemented four different settings:
-\newline 1) f1 - is using the global image features (without 'cnn')
-\newline 2) f2 - is using the local image features (without 'cnn')
+\newline 1) f1 - is using the global image features (without `cnn')
+\newline 2) f2 - is using the local image features (without `cnn')
 \newline 3) f1r f2d cnn - is using the global image features for relevance, local for diversity and global 'cnn'
-\newline 4) f2 cnn2 - is using the local image features with local 'cnn'
+\newline 4) f2 cnn2 - is using the local image features with local `cnn'
 
 
 \section{Results}
