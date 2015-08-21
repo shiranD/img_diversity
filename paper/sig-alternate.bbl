@@ -29,10 +29,6 @@ H.~Y. Lee, H.~K. Lee, and Y.~H. Ha.
 \newblock Spatial color descriptor for image retrieval and video segmentation.
 \newblock {\em Multimedia, IEEE Transactions on}, 5(3):358--367, 2003.
 
-\bibitem{cnn}
-S.~Papadopoulos, A.~L. Ginsca, A.~Popescu, Y.~Kompatsiaris, and I.~Vlahavas.
-\newblock Improving diversity in image search via supervised relevance scoring.
-
 \bibitem{glr}
 S.~Selvarajah and S.~Kodituwakku.
 \newblock Analysis and comparison of texture features for content based image
