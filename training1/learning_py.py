@@ -50,32 +50,26 @@ else:
     with open(path, 'rb') as AutoPickleFile:
         X = pickle.load(AutoPickleFile)
 
-#sys.exit(os.EX_OK)
 # divide set
 allQueries = X.keys()
 #allQueries = sorted(allQueries)  # seed
-#rnd_seed = "stay"
-#seed(rnd_seed)
-#shuffle(allQueries) # for seed
+rnd_seed = "stay"
+seed(rnd_seed)
+shuffle(allQueries) # for seed
 #k = 10
 #testQueries = allQueries[1::k]
 #queries = list(set(allQueries) - set(testQueries))
 
 
-# prepare lda
-ldaPrep(allQueries, X)
-#sys.exit(os.EX_OK)
+# prepare lda (use only once)
+#ldaPrep(allQueries, X)
 #lsaPrep(allQueries, X)
-sys.exit(os.EX_OK) 
 
 path = "data/Hs_tag_cn"
 if 0:
     #buit dicts for hs and doc
     HsR = {}
     for query in queries:
-        #if query == "agra_fort":
-         #   continue
-        query == "agra_fort"
         doc_set = X[query]  # given a ordered doc set
         s = []
         docsR = []
@@ -97,7 +91,6 @@ else:
     with open(path, 'rb') as AutoPickleFile:
         HsR = pickle.load(AutoPickleFile)       
 
-#sys.exit(os.EX_OK) # code 0, all ok
 # init parameters
 iterNum = 1
 wr_len = 29890
