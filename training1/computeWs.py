@@ -1,19 +1,35 @@
+#Copyright (c) 2015 Shiran Dudy.
+#All rights reserved.
+
+#Redistribution and use in source and binary forms are permitted
+#provided that the above copyright notice and this paragraph are
+#duplicated in all such forms and that any documentation,
+#advertising materials, and other materials related to such
+#distribution and use acknowledge that the software was developed
+#by the CSLU. The name of the
+#CSLU may not be used to endorse or promote products derived
+#from this software without specific prior written permission.
+#THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+#IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+#WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+from __future__ import division
 from math import exp
 from lda import ldaIt
 from cosine import CosineSimilarity
-from cn import cn_field, cnDistance
-import json
-from collections import Counter
+#from cn import cn_field, cnDistance
+#import json
+#from collections import Counter
 import numpy as np
 from wordIt import extract_words
 
 
-"""" open the dict that assigns every word
-     to its place in relevance vector"""
-json_file = "dict/Termdict"
-with open(json_file) as f1:
-    for line in f1:  # extract jsons
-        termdict = json.loads(unicode(line))
+#"""" open the dict that assigns every word
+#     to its place in relevance vector"""
+#json_file = "dict/Termdict"
+#with open(json_file) as f1:
+ #   for line in f1:  # extract jsons
+  #      termdict = json.loads(unicode(line))
 
 
 def compute_hsofR(doc, s, query):
@@ -118,13 +134,13 @@ def doc_it(a_doc):
     words = extract_words(a_doc)
     counter = Counter(words)
     vec = len(termdict) * [0]
+    l_doc = len(words)
     for (word, count) in counter.iteritems():
-        vec[termdict[word]] = count
-    # normalize by the single vector?
-    # by the global highest value of cn?
-    # add numerical features
+        # normalize
+        vec[termdict[word]] = count / l_doc
+    # add img features
     # cn
-    cn = a_doc["cn"]
+    cn = a_doc["cn"] # is normalized
     cn = [float(i) for i in cn]
     vec.extend(cn)
     return np.array(vec)

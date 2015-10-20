@@ -1,7 +1,31 @@
+#Copyright (c) 2015 Shiran Dudy.
+#All rights reserved.
+
+#Redistribution and use in source and binary forms are permitted
+#provided that the above copyright notice and this paragraph are
+#duplicated in all such forms and that any documentation,
+#advertising materials, and other materials related to such
+#distribution and use acknowledge that the software was developed
+#by the CSLU. The name of the
+#CSLU may not be used to endorse or promote products derived
+#from this software without specific prior written permission.
+#THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+#IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+#WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+# the updated training code. This is the concept however, if there are
+# many documents this part should be broken down to three parts since updating the
+# loss is only when all queries were computed. For my purposes I took advantage of these
+# independencies to run the code in parallel. (I did not upload the parallel version 
+# but it you'd want you can email me dudy@ohsu.edu)
+# details are in “OHSU @ MediaEval: Adapting Textual Techniques to Multimedia Search” 
+#, S. Dudy, S. Bedrick, MediaEval Benchmarking Initiative for Multimedia Evaluation 
+#(IEEE satellite event), Wurzen, 2015.
+
 from __future__ import division
 from collections import defaultdict
 from random import shuffle, seed
-from lda import ldaPrep
+from lda import ldaPrep, lsaPrep, lsaIt
 from computeWs_py import compute_hsofR, compute_denom, \
      compute_num, compute_wd, compute_wr, doc_it
 import numpy as np
@@ -9,45 +33,49 @@ import pickle
 from datetime import datetime
 import sys, os
 
-path = "data/X"
+#path = "data/X_test_all_1"
+path = "data/lh"
 
-if 0:
+if 1:
     from Xtraction3 import extractXY
 
     # extract features
-    path2docs = "../../feats/both/"
-    path2rlvnce = "../../gt/rGT/"
+    path2docs = "../../feats/both2/"
 
     # create dict word number and X
-    X = extractXY(path2docs, path2rlvnce)
+    X = extractXY(path2docs)
     with open(path, 'wb') as AutoPickleFile:
         pickle.dump((X), AutoPickleFile)
 else:
     with open(path, 'rb') as AutoPickleFile:
         X = pickle.load(AutoPickleFile)
 
+#sys.exit(os.EX_OK)
 # divide set
 allQueries = X.keys()
-allQueries = sorted(allQueries)  # seed
-rnd_seed = "stay"
-seed(rnd_seed)
-shuffle(allQueries) # for seed
-k = 10
-testQueries = allQueries[1::k]
-queries = list(set(allQueries) - set(testQueries))
+#allQueries = sorted(allQueries)  # seed
+#rnd_seed = "stay"
+#seed(rnd_seed)
+#shuffle(allQueries) # for seed
+#k = 10
+#testQueries = allQueries[1::k]
+#queries = list(set(allQueries) - set(testQueries))
 
 
 # prepare lda
-# ldaPrep(allQueries, X)
+ldaPrep(allQueries, X)
+#sys.exit(os.EX_OK)
+#lsaPrep(allQueries, X)
+sys.exit(os.EX_OK) 
 
-path = "data/Hs"
+path = "data/Hs_tag_cn"
 if 0:
     #buit dicts for hs and doc
     HsR = {}
     for query in queries:
-        if query == "agra_fort":
-            continue
-        
+        #if query == "agra_fort":
+         #   continue
+        query == "agra_fort"
         doc_set = X[query]  # given a ordered doc set
         s = []
         docsR = []
@@ -102,7 +130,7 @@ for a in xrange(iterNum):
                 # compute wd_q for one
                 hs_ofR = R[i-1]
                 # compute wr_q for one
-                doc_r = doc_it(doc)
+                doc_r = doc_it(doc, query)
                 # compute wd_q for rest
                 wd_rest = compute_wd(doc_set[i:], s, query, wd_q, wr_q, R[i-1:])
                 # compute wr_q for rest
@@ -127,8 +155,7 @@ for a in xrange(iterNum):
     # calculate the loss
     loss = 0
     for query in queries:
-        if query == "agra_fort":
-            continue        
+      
         doc_set = X[query]  # given a ordered doc set
         s = []
         R = HsR[query]
@@ -151,6 +178,8 @@ for a in xrange(iterNum):
 
 # store wd, wr
 path = "weights_py/"
-name = "second"
+if not os.path.exists(path):
+    os.makedirs(path)
+w_name = "second"
 with open(path + name, 'wb') as AutoPickleFile:
     pickle.dump((wd, wr), AutoPickleFile)

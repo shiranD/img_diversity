@@ -1,3 +1,20 @@
+#Copyright (c) 2015 Shiran Dudy.
+#All rights reserved.
+
+#Redistribution and use in source and binary forms are permitted
+#provided that the above copyright notice and this paragraph are
+#duplicated in all such forms and that any documentation,
+#advertising materials, and other materials related to such
+#distribution and use acknowledge that the software was developed
+#by the CSLU. The name of the
+#CSLU may not be used to endorse or promote products derived
+#from this software without specific prior written permission.
+#THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+#IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+#WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+# main training code
+
 from __future__ import division
 from random import shuffle, seed
 from lda import ldaPrep
@@ -5,6 +22,7 @@ from computeWs import compute_hsofR, compute_denom, \
      compute_num, compute_wd, compute_wr, doc_it
 import numpy as np
 import pickle
+from datetime import datetime
 
 path = "data/X"
 
@@ -27,15 +45,15 @@ else:
 # divide set
 allQueries = X.keys()
 allQueries = sorted(allQueries)  # seed
-# rnd_seed = "stay"
-# seed(rd_seed)
-# shuffle(allQueries) # for seed
+rnd_seed = "stay"
+seed(rnd_seed)
+shuffle(allQueries) # for seed
 k = 10
 testQueries = allQueries[1::k]
 queries = list(set(allQueries) - set(testQueries))
 
 # prepare lda
-# ldaPrep(allQueries, X)
+#ldaPrep(allQueries, X)
 
 
 # init parameters
@@ -82,6 +100,8 @@ for a in xrange(iterNum):
             # update w's
 
             s.append(doc)
+        print query
+        print str(datetime.now())
 
     # update model weight vectors
     wd += eta * wd_q
